@@ -38,6 +38,3 @@ class TextNode:
             raise Exception('text_type does not match options')
         return LeafNode(tag, self.text, props)
     
-def split_nodes_delimiter(old_nodes, deliminet, text_type):
-    
-    return ""
