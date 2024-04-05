@@ -138,6 +138,5 @@ class TestTextNode(unittest.TestCase):
             text_to_textnodes(text),
         )
 
-
 if __name__ == "__main__":
     unittest.main()
