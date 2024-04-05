@@ -24,6 +24,8 @@ class TextNode:
         props = None
         if self.text_type == text_type_bold:
             tag = 'b'
+        elif self.text_type == text_type_text:
+            tag = None
         elif self.text_type == text_type_italic:
             tag = 'i'
         elif self.text_type == text_type_code:
@@ -35,6 +37,6 @@ class TextNode:
             tag = 'img'
             props = {"src": self.url, "alt": self.text}
         else:
-            raise Exception('text_type does not match options')
+            raise ValueError(f'text_type does not match options : {self.text_type}')
         return LeafNode(tag, self.text, props)
     
