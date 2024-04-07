@@ -1,16 +1,20 @@
-from textnode import (
-    TextNode,    
-    text_type_text,
-    text_type_bold,
-    text_type_italic,
-    text_type_code,
-    text_type_image,
-    text_type_link,)
-from inline_markdown import (split_nodes_delimiter,)
+import os
+import shutil
+
+from copystatic import copy_files_recursive
+
+
+dir_path_static = "./static"
+dir_path_public = "./public"
+
 
 def main():
-    print("# hello world")
-    node = TextNode("This is text with a `code block` word", text_type_text)
-    new_nodes = split_nodes_delimiter([node], "`", text_type_code)
-    print(new_nodes)
+    print("Deleting public directory...")
+    if os.path.exists(dir_path_public):
+        shutil.rmtree(dir_path_public)
+
+    print("Copying static files to public directory...")
+    copy_files_recursive(dir_path_static, dir_path_public)
+
+
 main()
