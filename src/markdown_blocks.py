@@ -98,7 +98,12 @@ def block_to_html_olist(block):
     return block_to_html_list('ol', 3, block)
 
 def block_to_html_code(block):
-    return ParentNode('pre', ParentNode('code', text_to_children(block)))
+    if not block.startswith("```") or not block.endswith("```"):
+        raise ValueError("Invalid code block")
+    text = block[4:-3]
+    children = text_to_children(text)
+    code = ParentNode("code", children)
+    return ParentNode("pre", [code])
 
 def block_to_html_heading(block):
     amount_of_hashtags = block.split(' ')[0].count('#')
