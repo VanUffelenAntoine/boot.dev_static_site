@@ -25,3 +25,11 @@ def generate_page(from_path, template_path, dest_path):
     html_file.write(new_html)
 
     print(f'Generated page from {from_path}, to {dest_path} using {template_path}')
+
+def generate_page_recursive(dir_path_content, template_path, dest_dir_path):
+    for dir in os.listdir(dir_path_content):
+        if dir.rfind('.md') >= 0:
+            generate_page(os.path.join(dir_path_content, dir), template_path, os.path.join(dest_dir_path, dir.rstrip('.md') + '.html'))
+        else:
+            print(f'Not found at {dir}')
+            generate_page_recursive(os.path.join(dir_path_content, dir + '/'), template_path, os.path.join(dest_dir_path, dir + '/'))
