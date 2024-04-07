@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from markdown_blocks import markdown_to_blocks, markdown_to_html_node
 
 
@@ -28,8 +29,9 @@ def generate_page(from_path, template_path, dest_path):
 
 def generate_page_recursive(dir_path_content, template_path, dest_dir_path):
     for dir in os.listdir(dir_path_content):
-        if dir.rfind('.md') >= 0:
-            generate_page(os.path.join(dir_path_content, dir), template_path, os.path.join(dest_dir_path, dir.rstrip('.md') + '.html'))
+        new_from_path = os.path.join(dir_path_content, dir)
+        new_dest_path = os.path.join(dest_dir_path, dir + '/')
+        if os.path.isfile(new_from_path):
+            generate_page(new_from_path, template_path, Path(new_dest_path).with_suffix(".html"))
         else:
-            print(f'Not found at {dir}')
-            generate_page_recursive(os.path.join(dir_path_content, dir + '/'), template_path, os.path.join(dest_dir_path, dir + '/'))
+            generate_page_recursive(new_from_path, template_path, new_dest_path)
